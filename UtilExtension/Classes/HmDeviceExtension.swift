@@ -39,6 +39,7 @@ public extension HmUtils where Util == Device {
         #endif
     }
 
+    #if os(iOS)
     private static func getiOSIdentifier() -> String {
         var systemInfo = utsname()
         uname(&systemInfo)
@@ -49,7 +50,9 @@ public extension HmUtils where Util == Device {
         }
         return identifier
     }
+    #endif
 
+    #if os(macOS)
     private static func getmacOSIdentifier() -> String {
         let service = IOServiceGetMatchingService(kIOMasterPortDefault,
                                                   IOServiceMatching("IOPlatformExpertDevice"))
@@ -61,4 +64,5 @@ public extension HmUtils where Util == Device {
         IOObjectRelease(service)
         return modelIdentifier ?? ""
     }
+    #endif
 }
