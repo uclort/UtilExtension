@@ -1,6 +1,6 @@
 # UtilExtension
 
-[![CI Status](https://img.shields.io/travis/侯猛/UtilExtension.svg?style=flat)](https://travis-ci.org/侯猛/UtilExtension)
+[![CI Status](https://img.shields.io/travis/侯猛/UtilExtension.svg?style=flat)](https://travis-ci.org/uclort/UtilExtension)
 [![Version](https://img.shields.io/cocoapods/v/UtilExtension.svg?style=flat)](https://cocoapods.org/pods/UtilExtension)
 [![License](https://img.shields.io/cocoapods/l/UtilExtension.svg?style=flat)](https://cocoapods.org/pods/UtilExtension)
 [![Platform](https://img.shields.io/cocoapods/p/UtilExtension.svg?style=flat)](https://cocoapods.org/pods/UtilExtension)
@@ -17,12 +17,12 @@ UtilExtension is available through [CocoaPods](https://cocoapods.org). To instal
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'UtilExtension'
+pod 'UtilExtension', :git => 'https://github.com/uclort/UtilExtension.git'
 ```
 
 ## Author
 
-侯猛, houmeng@gwm.cn
+Uclort, uclort@gmail.com
 
 ## License
 
