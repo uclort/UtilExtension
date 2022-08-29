@@ -43,12 +43,12 @@ class ViewController: UIViewController {
         )
         let button = UIButton.util.createGeneralType(
             frame: .init(x: 20, y: 90, width: 200, height: 100),
-            normalTitle: "一一一一",
+//            normalTitle: "一一一一",
             titleFont: .systemFont(ofSize: 20),
             titleNormalColor: .black,
             normalImage: xcode?.util.changeSize(to: .init(width: 80, height: 80))
         )
-        button.util.insideLayoutType(style: .imageTextBestRight, spacing: 10)
+        button.util.insideLayoutType(style: .onlyImageBestRight, spacing: 50)
         view.addSubview(button)
         view.util.addMarginBorder(targetFrame: button.frame, borderWidth: 1, borderColor: .black)
     }

@@ -40,6 +40,14 @@ public enum HmUtilButtonInsideLayoutType {
     case textImageBestLeft
     /// 文字 -> 图片 右边缘对齐按钮
     case textImageBestRight
+    /// 只有文字 左边缘对齐
+    case onlyTextBestLeft
+    /// 只有文字 右边缘对齐
+    case onlyTextBestRight
+    /// 只有图片 左边缘对齐
+    case onlyImageBestLeft
+    /// 只有图片 右边缘对齐
+    case onlyImageBestRight
 }
 
 public extension HmVariableUtils where Util: UIButton {
@@ -352,28 +360,36 @@ public extension HmVariableUtils where Util: UIButton {
     ///     - imageRight or textLeft: 图片在右 文字在左
     ///     - imageTop or textBottom: 图片在上 文字在下
     ///     - imageBottom or textTop: 图片在下 文字在上
+    ///     - imageTextBestLeft: 图片 -> 文字 左边缘对齐按钮
+    ///     - imageTextBestRight: 图片 -> 文字 右边缘对齐按钮
+    ///     - textImageBestLeft: 文字 -> 图片 左边缘对齐按钮
+    ///     - textImageBestRight: 文字 -> 图片 右边缘对齐按钮
+    ///     - onlyTextBestLeft: 只有文字 左边缘对齐
+    ///     - onlyTextBestRight: 只有文字 右边缘对齐
+    ///     - onlyImageBestLeft: 只有图片 左边缘对齐
+    ///     - onlyImageBestRight: 只有图片 右边缘对齐
     ///   - spacing: spacing description
     func insideLayoutType(style: HmUtilButtonInsideLayoutType, spacing: CGFloat) {
+        let imageW = util.imageView?.image?.size.width ?? 0.0
+        let titleW = util.titleLabel?.frame.size.width ?? 0.0
+        // 文字和图片都不存在的情况下直接跳出
+        if imageW + titleW == 0.0 { return }
         switch style {
-        case .imageLeft, .textRight: // 默认 图片左 文字右
+        case .imageLeft, .textRight: // 默认 图片在左 文字在右
             util.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: -0.5 * spacing, bottom: 0.0, right: 0.5 * spacing)
             util.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.5 * spacing, bottom: 0.0, right: -0.5 * spacing)
-        case .imageRight, .textLeft:
-            let imageW = util.imageView?.image?.size.width ?? 0.0
-            let titleW = util.titleLabel?.frame.size.width ?? 0.0
+        case .imageRight, .textLeft: // 图片在右 文字在左
             let imageOffset = titleW + 0.5 * spacing
             let titleOffset = imageW + 0.5 * spacing
-            util.imageEdgeInsets = UIEdgeInsets(top: 0, left: imageOffset, bottom: 0, right: -imageOffset)
-            util.titleEdgeInsets = UIEdgeInsets(top: 0, left: -titleOffset, bottom: 0, right: titleOffset)
-        case .imageTop, .textBottom:
-            let imageW = util.imageView?.frame.size.width ?? 0.0
+            util.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: imageOffset, bottom: 0.0, right: -imageOffset)
+            util.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: -titleOffset, bottom: 0.0, right: titleOffset)
+        case .imageTop, .textBottom: // 图片在上 文字在下
             let imageH = util.imageView?.frame.size.height ?? 0.0
             let titleIntrinsicContentSizeW = util.titleLabel?.intrinsicContentSize.width ?? 0.0
             let titleIntrinsicContentSizeH = util.titleLabel?.intrinsicContentSize.height ?? 0.0
             util.imageEdgeInsets = UIEdgeInsets(top: -titleIntrinsicContentSizeH - spacing, left: 0.0, bottom: 0.0, right: -titleIntrinsicContentSizeW)
             util.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: -imageW, bottom: -imageH - spacing, right: 0.0)
-        case .imageBottom, .textTop:
-            let imageW = util.imageView?.frame.size.width ?? 0.0
+        case .imageBottom, .textTop: // 图片在下 文字在上
             let imageH = util.imageView?.frame.size.height ?? 0.0
             let titleIntrinsicContentSizeW = util.titleLabel?.intrinsicContentSize.width ?? 0.0
             let titleIntrinsicContentSizeH = util.titleLabel?.intrinsicContentSize.height ?? 0.0
@@ -381,40 +397,52 @@ public extension HmVariableUtils where Util: UIButton {
             util.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: -imageW, bottom: imageH + spacing, right: 0.0)
         case .imageTextBestLeft: // 图片 -> 文字 左边缘对齐按钮
             let width = util.util.width
-            let imageW = util.imageView?.image?.size.width ?? 0.0
-            let titleW = util.titleLabel?.frame.size.width ?? 0.0
             var padding = width - (imageW + titleW)
             padding *= 0.5
             util.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: -padding, bottom: 0.0, right: padding)
             util.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: -(padding - spacing), bottom: 0.0, right: padding - spacing)
         case .imageTextBestRight: // 图片 -> 文字 右边缘对齐按钮
             let width = util.util.width
-            let imageW = util.imageView?.image?.size.width ?? 0.0
-            let titleW = util.titleLabel?.frame.size.width ?? 0.0
             var padding = width - (imageW + titleW)
             padding *= 0.5
             util.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: padding - spacing, bottom: 0.0, right: -(padding - spacing))
             util.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: padding, bottom: 0.0, right: -padding)
         case .textImageBestLeft: // 文字 -> 图片 左边缘对齐按钮
             let width = util.util.width
-            let imageW = util.imageView?.image?.size.width ?? 0.0
-            let titleW = util.titleLabel?.frame.size.width ?? 0.0
             var padding = width - (imageW + titleW)
             padding *= 0.5
             let imageOffset = titleW - padding + spacing
             let titleOffset = imageW + padding
-            util.imageEdgeInsets = UIEdgeInsets(top: 0, left: imageOffset, bottom: 0, right: -imageOffset)
-            util.titleEdgeInsets = UIEdgeInsets(top: 0, left: -titleOffset, bottom: 0, right: titleOffset)
+            util.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: imageOffset, bottom: 0.0, right: -imageOffset)
+            util.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: -titleOffset, bottom: 0.0, right: titleOffset)
         case .textImageBestRight: // 文字 -> 图片 右边缘对齐按钮
             let width = util.util.width
-            let imageW = util.imageView?.image?.size.width ?? 0.0
-            let titleW = util.titleLabel?.frame.size.width ?? 0.0
             var padding = width - (imageW + titleW)
             padding *= 0.5
             let imageOffset = titleW + padding
             let titleOffset = imageW - padding + spacing
-            util.imageEdgeInsets = UIEdgeInsets(top: 0, left: imageOffset, bottom: 0, right: -imageOffset)
-            util.titleEdgeInsets = UIEdgeInsets(top: 0, left: -titleOffset, bottom: 0, right: titleOffset)
+            util.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: imageOffset, bottom: 0.0, right: -imageOffset)
+            util.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: -titleOffset, bottom: 0.0, right: titleOffset)
+        case .onlyTextBestLeft: // 只有文字 左边缘对齐
+            let width = util.util.width
+            var padding = width - titleW
+            padding *= 0.5
+            util.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: -padding, bottom: 0.0, right: padding)
+        case .onlyTextBestRight: // 只有文字 右边缘对齐
+            let width = util.util.width
+            var padding = width - titleW
+            padding *= 0.5
+            util.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: padding, bottom: 0.0, right: -padding)
+        case .onlyImageBestLeft: // 只有图片 左边缘对齐
+            let width = util.util.width
+            var padding = width - imageW
+            padding *= 0.5
+            util.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: -padding, bottom: 0.0, right: padding)
+        case .onlyImageBestRight: // 只有图片 右边缘对齐
+            let width = util.util.width
+            var padding = width - imageW
+            padding *= 0.5
+            util.imageEdgeInsets = UIEdgeInsets(top: 0.0, left: padding, bottom: 0.0, right: -padding)
         }
     }
 }
