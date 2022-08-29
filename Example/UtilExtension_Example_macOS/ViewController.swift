@@ -13,7 +13,13 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        var date = Date()
+        print(date)
+        date.util_year = 2021
+        print(date)
+        
+        print(UtilDevice.util.modelName)
     }
 
     override var representedObject: Any? {

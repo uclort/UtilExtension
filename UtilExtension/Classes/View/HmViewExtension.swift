@@ -8,7 +8,7 @@
 #if os(iOS)
 import UIKit
 
-public extension HmUtils where Util: UIView {
+public extension HmVariableUtils where Util: UIView {
     static var identifier: String {
         NSStringFromClass(Util.self)
     }
@@ -34,10 +34,13 @@ public extension HmUtils where Util: UIView {
         return image
     }
     
-    func removeAllSubviews() {
+    func removeAllSubview() {
         while util.subviews.count > 0 {
             util.subviews.last?.removeFromSuperview()
         }
+    }
+    func removeGestureRecognizers() {
+        util.gestureRecognizers?.forEach(util.removeGestureRecognizer)
     }
     
     /// 控件尺寸
@@ -233,6 +236,31 @@ public extension HmUtils where Util: UIView {
         set {
             util.layer.shadowRadius = newValue
         }
+    }
+    
+    /// 创建一个外边框
+    /// - Parameters:
+    ///   - targetFrame: 外边框参照物的 frame
+    ///   - borderWidth: 边框线尺寸
+    ///   - borderColor: 边框线颜色
+    ///   - layerName: 边框名称 创建之前会遍历所有的 layer 若发现相同 layer 会删除 防止多次叠加
+    func addMarginBorder(targetFrame: CGRect, borderWidth: CGFloat, borderColor: UIColor, layerName: String? = nil) {
+        if let layerName = layerName {
+            util.layer.sublayers?.util.forEach(where: { $0.name == layerName }, body: { $0.removeFromSuperlayer() })
+        }
+        let layer = CALayer()
+        layer.name = layerName
+        layer.frame = .init(
+            x: targetFrame.util.left - borderWidth,
+            y: targetFrame.util.top - borderWidth,
+            width: targetFrame.width + 2 * borderWidth,
+            height: targetFrame.height + 2 * borderWidth
+        )
+        layer.masksToBounds = true
+        layer.cornerRadius = util.util.cornerRadius + borderWidth
+        layer.borderWidth = borderWidth
+        layer.borderColor = borderColor.cgColor
+        util.layer.addSublayer(layer)
     }
 }
 #endif

@@ -7,8 +7,10 @@
 
 import Foundation
 
-public extension HmUtils where Util == [String: Any] {
+public extension HmObjectUtils where Util: Sequence {
+    /// 获取 key 对应的 value 并尝试转换为 String
     func string(for key: String) -> String? {
+        guard let util = util as? [String: Any] else { return nil }
         let value = util[key]
         if let valueString = value as? String {
             return valueString
@@ -24,7 +26,13 @@ public extension HmUtils where Util == [String: Any] {
         return nil
     }
     
+    func string(for key: String, defaultValue: String) -> String {
+        string(for: key) ?? defaultValue
+    }
+    
+    /// 获取 key 对应的 value 并尝试转换为 Int
     func int(for key: String) -> Int? {
+        guard let util = util as? [String: Any] else { return nil }
         let value = util[key]
         if let valueInt = value as? Int { // 是整型
             return valueInt
@@ -40,7 +48,13 @@ public extension HmUtils where Util == [String: Any] {
         return nil
     }
     
+    func int(for key: String, defaultValue: Int) -> Int {
+        int(for: key) ?? defaultValue
+    }
+    
+    /// 获取 key 对应的 value 并尝试转换为 Int64
     func int64(for key: String) -> Int64? {
+        guard let util = util as? [String: Any] else { return nil }
         let value = util[key]
         if let valueInt64 = value as? Int64 { // 是整型
             return valueInt64
@@ -56,7 +70,13 @@ public extension HmUtils where Util == [String: Any] {
         return nil
     }
     
+    func int64(for key: String, defaultValue: Int64) -> Int64 {
+        int64(for: key) ?? defaultValue
+    }
+    
+    /// 获取 key 对应的 value 并尝试转换为 Double
     func double(for key: String) -> Double? {
+        guard let util = util as? [String: Any] else { return nil }
         let value = util[key]
         if let valueDouble = value as? Double { // 是浮点型
             return valueDouble
@@ -72,7 +92,13 @@ public extension HmUtils where Util == [String: Any] {
         return nil
     }
     
+    func double(for key: String, defaultValue: Double) -> Double {
+        double(for: key) ?? defaultValue
+    }
+    
+    /// 获取 key 对应的 value 并尝试转换为 Float
     func float(for key: String) -> Float? {
+        guard let util = util as? [String: Any] else { return nil }
         let value = util[key]
         if let valueFloat = value as? Float { // 是整型
             return valueFloat
@@ -88,7 +114,13 @@ public extension HmUtils where Util == [String: Any] {
         return nil
     }
     
+    func float(for key: String, defaultValue: Float) -> Float {
+        float(for: key) ?? defaultValue
+    }
+    
+    /// 获取 key 对应的 value 并尝试转换为 Bool
     func bool(for key: String) -> Bool? {
+        guard let util = util as? [String: Any] else { return nil }
         let value = util[key]
         if let valueBool = value as? Bool { // 是整型
             return valueBool
@@ -100,11 +132,23 @@ public extension HmUtils where Util == [String: Any] {
         return nil
     }
     
-    func dictionary(for key: String) -> [String: Any]? {
-        util[key] as? [String: Any]
+    func bool(for key: String, defaultValue: Bool) -> Bool {
+        bool(for: key) ?? defaultValue
     }
     
+    /// 获取 key 对应的 value 并尝试转换为字典
+    func object(for key: String) -> [String: Any]? {
+        guard let util = util as? [String: Any] else { return nil }
+        return util[key] as? [String: Any]
+    }
+    
+    func object(for key: String, defaultValue: [String: Any]) -> [String: Any] {
+        object(for: key) ?? defaultValue
+    }
+    
+    /// 合并两个字典
     func merge(_ otherDictionary: [String: Any]?) -> [String: Any] {
+        guard let util = util as? [String: Any] else { return [:] }
         guard let otherDictionary = otherDictionary else {
             return util
         }
@@ -118,17 +162,40 @@ public extension HmUtils where Util == [String: Any] {
         return newDictionary
     }
     
-    func toJsonString(pretty: Bool = true, sort: Bool = false) -> String? {
+    /// 转换为 JSON String
+    /// - Parameters:
+    ///   - pretty: 是否格式对齐
+    ///   - sort: 是否进行排序
+    /// - Returns: JSON 对应的 String
+    func toJsonString(pretty: Bool = false, sort: Bool = false) -> String? {
         var options: JSONSerialization.WritingOptions = []
         if pretty {
             options.insert(.prettyPrinted)
         }
-        if sort {
-            options.insert(.sortedKeys)
+        if #available(iOS 11, *) {
+            if sort {
+                options.insert(.sortedKeys)
+            }
         }
         guard JSONSerialization.isValidJSONObject(util), let data = try? JSONSerialization.data(withJSONObject: util, options: options) else {
             return nil
         }
         return String(data: data, encoding: String.Encoding.utf8)
+    }
+    
+    /// 转换为 Data 二进制
+    /// - Parameter prettify: 是否对齐
+    func toJsonData(prettify: Bool = false) -> Data? {
+        guard JSONSerialization.isValidJSONObject(util) else {
+            return nil
+        }
+        let options = (prettify == true) ? JSONSerialization.WritingOptions.prettyPrinted : JSONSerialization.WritingOptions()
+        return try? JSONSerialization.data(withJSONObject: util, options: options)
+    }
+    
+    /// 是否包含某个 Key
+    func has(key: String) -> Bool {
+        guard let util = util as? [String: Any] else { return false }
+        return util.index(forKey: key) != nil
     }
 }

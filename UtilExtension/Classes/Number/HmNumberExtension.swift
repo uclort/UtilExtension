@@ -19,7 +19,7 @@ public extension HmUtils where Util == Int {
     var int64Value: Int64 {
         Int64(util)
     }
-    
+
     var boolValue: Bool {
         util > 0
     }
@@ -38,25 +38,6 @@ public extension HmUtils where Util == Int {
 
     var timeIntervalValue: TimeInterval {
         TimeInterval(util)
-    }
-
-    /// 转成 Date
-    func toDate(type: Date.DateFormatterType = .year_month_day) -> Date {
-        Date(timeIntervalSince1970: timeIntervalValue)
-    }
-
-    /// 转成 Date 字符串
-    func toDateString(type: Date.DateFormatterType = .year_month_day) -> String {
-        let dateFormatter = DateFormatter()
-        var dateFormat = ""
-        switch type {
-        case .custom(let format):
-            dateFormat = format
-        default:
-            dateFormat = type.rawValue
-        }
-        dateFormatter.dateFormat = dateFormat
-        return dateFormatter.string(from: toDate())
     }
 }
 
@@ -64,15 +45,15 @@ public extension HmUtils where Util == Int64 {
     var stringValue: String {
         "\(util)"
     }
-    
+
     var intValue: Int {
         Int(util)
     }
-    
+
     var boolValue: Bool {
         util > 0
     }
-    
+
     var doubleValue: Double {
         Double(util)
     }
@@ -87,16 +68,6 @@ public extension HmUtils where Util == Int64 {
 
     var timeIntervalValue: TimeInterval {
         TimeInterval(util)
-    }
-
-    /// 转成 Date
-    func toDate(type: Date.DateFormatterType = .year_month_day) -> Date {
-        intValue.util.toDate()
-    }
-
-    /// 转成 Date 字符串
-    func toDateString(type: Date.DateFormatterType = .year_month_day) -> String {
-        intValue.util.toDateString(type: type)
     }
 }
 
@@ -108,21 +79,17 @@ public extension HmUtils where Util == Float {
     var intValue: Int {
         Int(util)
     }
-    
+
     var int64Value: Int64 {
         Int64(util)
     }
-    
+
     var boolValue: Bool {
         util > 0
     }
-    
+
     var doubleValue: Double {
         Double(util)
-    }
-
-    var floatValue: Float {
-        Float(util)
     }
 
     var cgFloatValue: CGFloat {
@@ -138,17 +105,13 @@ public extension HmUtils where Util == Double {
     var intValue: Int {
         Int(util)
     }
-    
+
     var int64Value: Int64 {
         Int64(util)
     }
-    
+
     var boolValue: Bool {
         util > 0
-    }
-    
-    var doubleValue: Double {
-        Double(util)
     }
 
     var floatValue: Float {
@@ -160,14 +123,48 @@ public extension HmUtils where Util == Double {
     }
 }
 
-public extension HmUtils where Util == TimeInterval {
-    /// 转成 Date
-    func toDate(type: Date.DateFormatterType = .year_month_day) -> Date {
-        intValue.util.toDate()
+public extension HmUtils where Util == CGFloat {
+    var stringValue: String {
+        "\(util)"
     }
 
-    /// 转成 Date 字符串
-    func toDateString(type: Date.DateFormatterType = .year_month_day) -> String {
-        intValue.util.toDateString(type: type)
+    var intValue: Int {
+        Int(util)
+    }
+
+    var int64Value: Int64 {
+        Int64(util)
+    }
+
+    var boolValue: Bool {
+        util > 0
+    }
+
+    var doubleValue: Double {
+        Double(util)
+    }
+
+    var floatValue: Float {
+        Float(util)
+    }
+}
+
+public extension HmUtils where Util == Bool {
+    var intValue: Int {
+        return util ? 1 : 0
+    }
+
+    var stringValue: String {
+        return util ? "true" : "false"
+    }
+}
+
+public extension HmUtils where Util: FloatingPoint {
+    var ceil: Util {
+        return Foundation.ceil(util)
+    }
+
+    var floor: Util {
+        return Foundation.floor(util)
     }
 }

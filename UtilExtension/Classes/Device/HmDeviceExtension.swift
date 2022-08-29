@@ -9,22 +9,23 @@ import Foundation
 
 #if os(iOS)
 import UIKit
-public typealias Device = UIDevice
+public typealias UtilDevice = UIDevice
 #endif
 
 #if os(macOS)
-public typealias Device = Host
+public typealias UtilDevice = Host
 #endif
 
 private class BundleClass: NSObject {}
 
-public extension HmUtils where Util == Device {
+public extension HmUtils where Util == UtilDevice {
+     /// 设备型号
     static var modelName: String {
         guard let bundleUrl = Bundle(for: BundleClass.classForCoder()).url(forResource: "UtilExtension", withExtension: "bundle"),
               let jsonUrl = Bundle(url: bundleUrl)?.url(forResource: "apple-device", withExtension: "json"),
               let jsonData = try? Data(contentsOf: jsonUrl),
               let jsonObject = try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any],
-              let content = jsonObject.util.dictionary(for: "content")
+              let content = jsonObject.util.object(for: "content")
         else {
             return model
         }

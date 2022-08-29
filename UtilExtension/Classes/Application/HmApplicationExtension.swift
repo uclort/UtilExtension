@@ -5,11 +5,18 @@
 //  Created by 侯猛 on 2022/7/26.
 //
 
-import Foundation
 #if os(iOS)
 import UIKit
+public typealias UtilApplication = UIApplication
+#endif
 
-public extension HmUtils where Util == UIApplication {
+#if os(macOS)
+import AppKit
+public typealias UtilApplication = NSApplication
+#endif
+
+public extension HmUtils where Util == UtilApplication {
+    #if os(iOS)
     var keyWindow: UIWindow? {
         if #available(iOS 13, *) {
             guard let scenes = (UIApplication.shared.connectedScenes as? Set<UIWindowScene>) else {
@@ -25,6 +32,7 @@ public extension HmUtils where Util == UIApplication {
         }
         return nil
     }
+    #endif
 
     enum Environment {
         case debug
@@ -72,4 +80,3 @@ public extension HmUtils where Util == UIApplication {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     }
 }
-#endif
