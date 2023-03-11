@@ -120,5 +120,6 @@ extension Character: UclortExtensionUtilType {}
 extension URL: UclortExtensionUtilType {}
 extension Date: UclortExtensionUtilType {}
 extension CLLocationCoordinate2D: UclortExtensionUtilType {}
+extension Decimal: UclortExtensionUtilType {}
 
 extension NSObject: UclortExtensionVariableUtilType {}

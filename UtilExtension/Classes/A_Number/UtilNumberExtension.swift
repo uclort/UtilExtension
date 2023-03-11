@@ -198,3 +198,38 @@ public extension UclortExtensionUtil where Util: FloatingPoint {
         return Foundation.floor(util)
     }
 }
+
+
+public extension UclortExtensionUtil where Util == Decimal {
+    var nsDecimalNumber: NSDecimalNumber {
+        util as NSDecimalNumber
+    }
+    
+    var stringValue: String {
+        nsDecimalNumber.stringValue
+    }
+
+    var int64Value: Int64 {
+        nsDecimalNumber.int64Value
+    }
+
+    var boolValue: Bool {
+        nsDecimalNumber.boolValue
+    }
+
+    var doubleValue: Double {
+        nsDecimalNumber.doubleValue
+    }
+
+    var floatValue: Float {
+        nsDecimalNumber.floatValue
+    }
+
+    var cgFloatValue: CGFloat {
+        CGFloat(floatValue)
+    }
+
+    var timeIntervalValue: TimeInterval {
+        TimeInterval(doubleValue)
+    }
+}
