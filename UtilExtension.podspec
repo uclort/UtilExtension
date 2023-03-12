@@ -147,6 +147,16 @@ Pod::Spec.new do |s|
     sub.source_files = 'UtilExtension/Classes/A_Optional/**/*'
   end
   
+  s.subspec "A_Resources" do |sub|
+    sub.resource_bundles = {
+      'UtilExtensionResources' => ['UtilExtension/Assets/*']
+    }
+  end
+  
+  s.subspec "A_Responder" do |sub|
+    sub.source_files = 'UtilExtension/Classes/A_Responder/**/*'
+  end
+  
   s.subspec "A_Screen" do |sub|
     sub.source_files = 'UtilExtension/Classes/A_Screen/**/*'
   end
@@ -185,11 +195,5 @@ Pod::Spec.new do |s|
   
   s.subspec "A_ViewController" do |sub|
     sub.source_files = 'UtilExtension/Classes/A_ViewController/**/*'
-  end
-  
-  s.subspec "A_Resources" do |sub|
-    sub.resource_bundles = {
-      'UtilExtensionResources' => ['UtilExtension/Assets/*']
-    }
   end
 end
