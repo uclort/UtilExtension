@@ -12,7 +12,6 @@ import UtilExtension
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-
         print("modelName -> \(UIDevice.util.modelName)")
         
         let textView = UITextView(frame: .init(x: 10, y: 100, width: UIScreen.util.width - 20, height: 50))
