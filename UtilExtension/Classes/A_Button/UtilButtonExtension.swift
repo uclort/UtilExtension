@@ -765,7 +765,7 @@ public extension UclortExtensionVariableUtil where Util: UIButton {
             actionModel: actionModel
         )
     }
-
+    
     /// 设置 Button 标题
     /// - Parameters:
     ///   - title: 按钮默认状态下标题
@@ -800,6 +800,44 @@ public extension UclortExtensionVariableUtil where Util: UIButton {
             }
             if disableTitle == nil {
                 util.setTitle(selectedTitle, for: [.selected, .disabled])
+            }
+        }
+    }
+    
+    /// 设置 Button 富文本标题
+    /// - Parameters:
+    ///   - title: 按钮默认状态下富文本文字
+    ///   - highlightedTitle: 按钮高亮状态下富文本文字
+    ///   - selectedTitle: 按钮选择状态下富文本文字
+    ///   - disableTitle: 按钮不可用状态下富文本文字
+    func setAttributedTitle(
+        title: NSAttributedString,
+        highlightedTitle: NSAttributedString? = nil,
+        selectedTitle: NSAttributedString? = nil,
+        disableTitle: NSAttributedString? = nil
+    ) {
+        util.setAttributedTitle(title, for: .normal)
+        if let highlightedTitle = highlightedTitle {
+            util.setAttributedTitle(highlightedTitle, for: .highlighted)
+            util.setAttributedTitle(highlightedTitle, for: [.selected, .highlighted])
+        } else {
+            util.setAttributedTitle(title, for: .highlighted)
+            util.setAttributedTitle(title, for: [.selected, .highlighted])
+        }
+        if let disableTitle = disableTitle {
+            util.setAttributedTitle(disableTitle, for: .disabled)
+            util.setAttributedTitle(disableTitle, for: [.selected, .disabled])
+        } else {
+            util.setAttributedTitle(title, for: .disabled)
+            util.setAttributedTitle(title, for: [.selected, .disabled])
+        }
+        if let selectedTitle = selectedTitle {
+            util.setAttributedTitle(selectedTitle, for: .selected)
+            if highlightedTitle == nil {
+                util.setAttributedTitle(selectedTitle, for: [.selected, .highlighted])
+            }
+            if disableTitle == nil {
+                util.setAttributedTitle(selectedTitle, for: [.selected, .disabled])
             }
         }
     }
