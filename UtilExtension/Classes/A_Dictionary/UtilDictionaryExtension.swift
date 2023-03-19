@@ -237,7 +237,7 @@ public extension Dictionary {
     ///   - toKey: 要修改成的 key
     mutating func utilModifyKey(original key: Key, new newKey: Key) {
         guard key != newKey else { return }
-        if let entry = removeValue(forKey: newKey) {
+        if let entry = removeValue(forKey: key) {
             self[newKey] = entry
         }
     }
