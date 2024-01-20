@@ -25,14 +25,12 @@
 		2A3F8E4A553C010BC6591056 /* Pods_UtilExtension_Example_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UtilExtension_Example_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		337B40E0BE6AE32B80A2C14C /* Pods-UtilExtension_Example_macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtilExtension_Example_macOS.release.xcconfig"; path = "Target Support Files/Pods-UtilExtension_Example_macOS/Pods-UtilExtension_Example_macOS.release.xcconfig"; sourceTree = "<group>"; };
 		41874173E562582F618DA855 /* Pods-UtilExtension_Example_macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtilExtension_Example_macOS.debug.xcconfig"; path = "Target Support Files/Pods-UtilExtension_Example_macOS/Pods-UtilExtension_Example_macOS.debug.xcconfig"; sourceTree = "<group>"; };
-		4AD9522EA33C100453C4591A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		4B86B70B288FC60D009470BA /* UtilExtension_Example_macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UtilExtension_Example_macOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B86B70D288FC60D009470BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4B86B70F288FC60D009470BA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4B86B711288FC60F009470BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B86B714288FC60F009470BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4B86B716288FC60F009470BA /* UtilExtension_Example_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = UtilExtension_Example_macOS.entitlements; sourceTree = "<group>"; };
-		4FBB0C89DFFCCA9894466EA5 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		5B5DF5174856166CC0963643 /* Pods-UtilExtension_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtilExtension_Example.debug.xcconfig"; path = "Target Support Files/Pods-UtilExtension_Example/Pods-UtilExtension_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* UtilExtension_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UtilExtension_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -45,7 +43,6 @@
 		8D80223CDDC897A0B5179C53 /* Pods_UtilExtension_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UtilExtension_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91CF52BF63D71FDEA0FE46B7 /* Pods_UtilExtension_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UtilExtension_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		927C21C22759F44AC8FE9519 /* Pods-UtilExtension_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UtilExtension_Tests.debug.xcconfig"; path = "Target Support Files/Pods-UtilExtension_Tests/Pods-UtilExtension_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		F685129ABC58141FC836B600 /* UtilExtension.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = UtilExtension.podspec; path = ../UtilExtension.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +103,6 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
-				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for UtilExtension */,
 				4B86B70C288FC60D009470BA /* UtilExtension_Example_macOS */,
 				607FACD11AFB9204008FA782 /* Products */,
@@ -144,16 +140,6 @@
 				607FACD41AFB9204008FA782 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
-			isa = PBXGroup;
-			children = (
-				F685129ABC58141FC836B600 /* UtilExtension.podspec */,
-				4AD9522EA33C100453C4591A /* README.md */,
-				4FBB0C89DFFCCA9894466EA5 /* LICENSE */,
-			);
-			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -405,7 +391,6 @@
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = UtilExtension_Example_macOS/UtilExtension_Example_macOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -446,7 +431,6 @@
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_ENTITLEMENTS = UtilExtension_Example_macOS/UtilExtension_Example_macOS.entitlements;
 				CODE_SIGN_STYLE = Automatic;

@@ -12,7 +12,8 @@ import UtilExtension
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        print("modelName -> \(UIDevice.util.modelName)")
+        
         let textView = UITextView(frame: .init(x: 10, y: 100, width: UIScreen.util.width - 20, height: 50))
         textView.delegate = self
 //        view.addSubview(textView)
@@ -33,10 +34,10 @@ class ViewController: UIViewController {
         
         let tx = UIImage(named: "tx")
         let mg = UIImage(named: "mg")
-        let surge = UIImage(named: "surge")
-        let xcode = UIImage(named: "xcode")
+        let surge = UIImage(named: "Surge")
+        let xcode = UIImage(named: "Xcode")
 
-        let actionModel = HmUtilButtonActionModel(
+        let actionModel = UtilButtonActionModel(
             target: self,
             action: #selector(changedSelectedStatus(_:)),
             event: .touchUpInside
@@ -50,7 +51,7 @@ class ViewController: UIViewController {
         )
         button.util.insideLayoutType(style: .onlyImageBestRight, spacing: 50)
         view.addSubview(button)
-        view.util.addMarginBorder(targetFrame: button.frame, borderWidth: 1, borderColor: .black)
+        view.util.addOuterBorderLayer(frame: button.frame, borderWidth: 1, borderColor: .red)
     }
 
     override func didReceiveMemoryWarning() {
