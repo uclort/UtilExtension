@@ -15,7 +15,7 @@ public extension HmUtils where Util == String {
         guard length > 0 else { return "" }
         let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         var randomString = ""
-        for _ in 1...length {
+        for _ in 1 ... length {
             randomString.append(base.randomElement()!)
         }
         return randomString
@@ -138,40 +138,6 @@ public extension HmUtils where Util == String {
         util.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
-    /// 转成 NSNumber
-    var numberValue: NSNumber? {
-        NumberFormatter().number(from: util)
-    }
-
-    var intValue: Int? {
-        numberValue?.intValue
-    }
-
-    var int64Value: Int64? {
-        numberValue?.int64Value
-    }
-
-    var doubleValue: Double? {
-        numberValue?.doubleValue
-    }
-
-    var floatValue: Float? {
-        numberValue?.floatValue
-    }
-
-    var cgFloatValue: CGFloat? {
-        guard let numberValue = numberValue else { return nil }
-        return CGFloat(numberValue.floatValue)
-    }
-
-    var timeIntervalValue: TimeInterval? {
-        numberValue?.doubleValue
-    }
-
-    var boolValue: Bool {
-        util == "true"
-    }
-
     /// 字符串中是否包含 Emoji 字符
     ///
     ///        "Hello 😀".containEmoji -> true
@@ -180,19 +146,19 @@ public extension HmUtils where Util == String {
         // http://stackoverflow.com/questions/30757193/find-out-if-character-in-string-is-emoji
         for scalar in util.unicodeScalars {
             switch scalar.value {
-            case 0x1F600...0x1F64F, // Emoticons
-                 0x1F300...0x1F5FF, // Misc Symbols and Pictographs
-                 0x1F680...0x1F6FF, // Transport and Map
-                 0x1F1E6...0x1F1FF, // Regional country flags
-                 0x2600...0x26FF, // Misc symbols
-                 0x2700...0x27BF, // Dingbats
-                 0xE0020...0xE007F, // Tags
-                 0xFE00...0xFE0F, // Variation Selectors
-                 0x1F900...0x1F9FF, // Supplemental Symbols and Pictographs
-                 127000...127600, // Various asian characters
-                 65024...65039, // Variation selector
-                 9100...9300, // Misc items
-                 8400...8447: // Combining Diacritical Marks for Symbols
+            case 8400 ... 8447, // Combining Diacritical Marks for Symbols
+                 9100 ... 9300, // Misc items
+                 0x2600 ... 0x26FF, // Misc symbols
+                 0x2700 ... 0x27BF, // Dingbats
+                 0xFE00 ... 0xFE0F, // Variation Selectors
+                 65024 ... 65039, // Variation selector
+                 127000 ... 127600, // Various asian characters
+                 0x1F1E6 ... 0x1F1FF, // Regional country flags
+                 0x1F300 ... 0x1F5FF, // Misc Symbols and Pictographs
+                 0x1F600 ... 0x1F64F, // Emoticons
+                 0x1F680 ... 0x1F6FF, // Transport and Map
+                 0x1F900 ... 0x1F9FF, // Supplemental Symbols and Pictographs
+                 0xE0020 ... 0xE007F: // Tags
                 return true
             default:
                 continue
@@ -214,14 +180,14 @@ public extension HmUtils where Util == String {
     ///        "SomeText".copyToPasteboard() // copies "SomeText" to pasteboard
     ///
     #if os(iOS) || os(macOS)
-    func copyToPasteboard() {
-        #if os(iOS)
-        UIPasteboard.general.string = util
-        #elseif os(macOS)
-        NSPasteboard.general.clearContents()
-        NSPasteboard.general.setString(util, forType: .string)
-        #endif
-    }
+        func copyToPasteboard() {
+            #if os(iOS)
+                UIPasteboard.general.string = util
+            #elseif os(macOS)
+                NSPasteboard.general.clearContents()
+                NSPasteboard.general.setString(util, forType: .string)
+            #endif
+        }
     #endif
 
     /// 最后一个字符
@@ -292,32 +258,32 @@ public extension HmUtils where Util == String {
 public extension HmUtils where Util == String {
     /// NSString from a string.
     var nsString: NSString {
-        return NSString(string: util)
+        NSString(string: util)
     }
 
     /// NSString lastPathComponent.
     var lastPathComponent: String {
-        return (util as NSString).lastPathComponent
+        (util as NSString).lastPathComponent
     }
 
     /// NSString pathExtension.
     var pathExtension: String {
-        return (util as NSString).pathExtension
+        (util as NSString).pathExtension
     }
 
     /// NSString deletingLastPathComponent.
     var deletingLastPathComponent: String {
-        return (util as NSString).deletingLastPathComponent
+        (util as NSString).deletingLastPathComponent
     }
 
     /// NSString deletingPathExtension.
     var deletingPathExtension: String {
-        return (util as NSString).deletingPathExtension
+        (util as NSString).deletingPathExtension
     }
 
     /// NSString pathComponents.
     var pathComponents: [String] {
-        return (util as NSString).pathComponents
+        (util as NSString).pathComponents
     }
 
     /// SwifterSwift: NSString appendingPathComponent(str: String)
@@ -327,7 +293,7 @@ public extension HmUtils where Util == String {
     /// - Parameter str: the path component to append to the receiver.
     /// - Returns: a new string made by appending aString to the receiver, preceded if necessary by a path separator.
     func appendingPathComponent(_ str: String) -> String {
-        return (util as NSString).appendingPathComponent(str)
+        (util as NSString).appendingPathComponent(str)
     }
 
     /// SwifterSwift: NSString appendingPathExtension(str: String)
@@ -335,6 +301,89 @@ public extension HmUtils where Util == String {
     /// - Parameter str: The extension to append to the receiver.
     /// - Returns: a new string made by appending to the receiver an extension separator followed by ext (if applicable).
     func appendingPathExtension(_ str: String) -> String? {
-        return (util as NSString).appendingPathExtension(str)
+        (util as NSString).appendingPathExtension(str)
+    }
+}
+
+// MARK: Number
+
+public extension HmUtils where Util == String {
+    /// 转成 NSNumber
+    var numberValue: NSNumber? {
+        NumberFormatter().number(from: util)
+    }
+
+    /// 整型
+    var intValue: Int? {
+        numberValue?.intValue
+    }
+
+    /// 整型
+    /// - Parameter defaultValue: 默认值 默认 0
+    func intValue(defaultValue: Int = 0) -> Int {
+        intValue ?? defaultValue
+    }
+
+    /// Double 浮点型
+    var doubleValue: Double? {
+        numberValue?.doubleValue
+    }
+
+    /// Double 浮点型
+    /// - Parameter defaultValue: 默认值 默认 0.0
+    func doubleValue(defaultValue: Double = 0.0) -> Double {
+        doubleValue ?? defaultValue
+    }
+    
+    /// Float 浮点型
+    var floatValue: Float? {
+        numberValue?.floatValue
+    }
+
+    /// Float 浮点型
+    /// - Parameter defaultValue: 默认值 默认 0.0
+    func floatValue(defaultValue: Float = 0.0) -> Float {
+        floatValue ?? defaultValue
+    }
+    
+    /// CGFloat 浮点型
+    var cgFloatValue: CGFloat? {
+        guard let numberValue else { return nil }
+        return CGFloat(numberValue.floatValue)
+    }
+    
+    /// CGFloat 浮点型
+    /// - Parameter defaultValue: 默认值 默认 0.0
+    func cgFloatValue(defaultValue: CGFloat = 0.0) -> CGFloat {
+        cgFloatValue ?? defaultValue
+    }
+    
+    /// TimeInterval 浮点型
+    var timeIntervalValue: TimeInterval? {
+        numberValue?.doubleValue
+    }
+
+    /// TimeInterval 浮点型
+    /// - Parameter defaultValue: 默认值 默认 0.0
+    func timeIntervalValue(defaultValue: TimeInterval = 0.0) -> TimeInterval {
+        timeIntervalValue ?? defaultValue
+    }
+    
+    /// Bool 浮点型
+    var boolValue: Bool? {
+        if util == "true" {
+            return true
+        } else if util == "false" {
+            return false
+        } else if let doubleValue {
+            return doubleValue > 0
+        }
+        return nil
+    }
+
+    /// Bool
+    /// - Parameter defaultValue: 默认值 默认 false
+    func boolValue(defaultValue: Bool = false) -> Bool {
+        boolValue ?? defaultValue
     }
 }
